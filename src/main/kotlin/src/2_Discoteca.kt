@@ -10,7 +10,36 @@
 fun main()
 {
      var edad = 0
-     var es_invitado = false
+     var esInvitado = true
 
+     try
+     {
+          println("Introduce tu edad: ")
+          edad = readln().toInt()
 
+          if (edad < 0)
+               throw IllegalArgumentException("Error. La edad no puede ser negativa")
+
+          println("Introduce true si eres invitado, escribe false en caso contrario: ")
+          esInvitado = readln().toBoolean()
+
+     } catch (e: NumberFormatException)
+     {
+          println("Error ${e.message}")
+          println("Debes introducir un formato válido")
+          return
+
+     } catch(e: IllegalArgumentException)
+     {
+          println("${e.message}")
+          return
+     }
+
+     when
+     {
+          edad >= 18 && esInvitado -> println("Eres mayor de edad y traes invitación, puedes pasar a la fiesta")
+          edad >= 18 -> println("Eres mayor de edad, puedes pasar a la fiesta")
+          esInvitado -> println("Traes invitación, puedes entrar a la fiesta")
+          else -> println("No puedes entrar a la fiesta")
+     }
 }
