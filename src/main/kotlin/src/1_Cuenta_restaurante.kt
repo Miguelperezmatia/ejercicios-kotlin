@@ -4,6 +4,7 @@
     Imprime el resultado en consola
 */
 
-
-total = 0.0
-porcentaje = 0
+fun main()
+{
+    var total = 0.0
+}
