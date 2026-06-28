@@ -53,5 +53,7 @@ class Smartphone(val marca: String, val modelo: String, var bateriaActual: Int) 
                         */
 
         s.usarApp()
+
+        s.usarApp()
     }
 
