@@ -1,3 +1,5 @@
+import segundoNumero
+
 /*
     Hágase un programa que permita realizar sumas, restas, productos, divisiones enteras y resto entero de números enteros
     largos positivos o cero con un máximo de 9 dígitos.
@@ -197,27 +199,181 @@ fun ejecutarAcciones(opcion: String, primerNumero: Long, segundoNumero: Long, op
         "3" -> modificarPrimerNumero()
         "4" -> modificarSegundoNumero()
         "5" -> modificarOperacion()
-        else -> salir()
+        else -> terminar()
     }
 }
 
 
 
-fun salir() {
+fun terminar() {
     println("Saliendo de la calculadora...")
     Thread.sleep(2000)
 }
 
-fun modificarOperacion() {
+fun modificarOperacion()
+{
+    val s = """|*********************************************************
+               |* LEER OPERACIÓN *
+               |*********************************************************
+               |
+    """.trimMargin()
+
+    println(s)
+
+    while(true)
+    {
+        print("* ESCRIBE UNA OPERACION (+,-,*,/,%): ")
+        operacion = readln()
+        if(operacion == "+" || operacion == "-" || operacion == "*" || operacion == "/" || operacion == "%")
+            break
+        println("Error. Introduce una operación válida")
+    }
+
+    val s2 = """|OPERACION MODIFICADA
+                |---------------------------------------------------------   
+                |            
+             """.trimMargin()
+
+    println(s2)
+    detenerEnter()
+}
+
+fun modificarSegundoNumero()
+{
+    segundoNumero = aplicarLogicaSubmenu(segundoNumero)
+}
+
+
+fun modificarPrimerNumero()
+{
+    primerNumero = aplicarLogicaSubmenu(primerNumero)
+}
+
+fun aplicarLogicaSubmenu(numero: Long): Long
+{
+    var numeroModificado = numero
+
+    while(true)
+    {
+        mostrarSubmenu()
+        val opcion = leerOpcion()
+        numeroModificado = ejecutarAccionesSubmenu(opcion, numeroModificado)
+        if(opcion != "1" && opcion != "2" && opcion != "3" && opcion != "4")
+            break
+    }
+
+    println("Programa finalizado.")
+    return numeroModificado
+}
+
+fun ejecutarAccionesSubmenu(opcion: String, num: Long) : Long
+{
+    return when (opcion)
+    {
+        "1" -> anadirDigito(num)
+        "2" -> quitarUltimoDigito(num)
+        "3" -> quitarDigitosPares(num)
+        "4" -> sumarDigitos(num)
+        else -> num
+    }
+}
+
+fun sumarDigitos(num: Long): Long {
     TODO("Not yet implemented")
 }
 
-fun modificarSegundoNumero() {
+fun quitarDigitosPares(num: Long): Long {
     TODO("Not yet implemented")
 }
-fun modificarPrimerNumero() {
+
+
+fun quitarUltimoDigito(num: Long): Long {
     TODO("Not yet implemented")
 }
+
+fun anadirDigito(num : Long): Long
+{
+    val s = """|*********************************************************
+               |* AÑADIR DÍGITO *
+               |**********************************************************º
+               |
+               |NÚMERO A MODIFICAR: $num""".trimMargin()
+
+    println(s)
+    println("Escribe un dígito del 0 al 9 ")
+
+
+    val digito = leerNumero()
+    val nuevoNumero = obtenerNuevoNumero(num, digito)
+    return nuevoNumero
+}
+
+fun obtenerNuevoNumero(num: Long, digito: Int)  : Long
+{
+    val numeroCadena = num.toString()
+
+    if(numeroCadena.length == 9)
+    {
+        println("No se puede añadir el dígito $digito porque tu número ya tiene 9 dígitos: $num")
+        detenerEnter()
+        return num
+    }
+
+    val nuevoNumero = num * 10 + digito
+    val s = """|NUEVO NUMERO: $nuevoNumero
+               |---------------------------------------------------------
+               |
+            """.trimMargin()
+
+    println(s)
+
+    detenerEnter()
+    return nuevoNumero
+}
+
+
+fun leerNumero(): Int
+{
+    var digito = 0
+
+    while(true)
+    {
+        try
+        {
+            println("Introduce un número entre el 0 y el 9 (ambos incluidos).")
+            digito = readln().toInt()
+
+            if (digito >= 0 && digito <= 9)
+                break
+
+            println("Error.")
+
+        }   catch(e: NumberFormatException)
+        {
+            println("Error: ${e.message}")
+            println("Escribe un formato válido")
+        }
+    }
+
+    return digito
+}
+
+
+fun mostrarSubmenu()
+{
+    println("""|OPCION      ACCION
+               |========================================================
+               |  1         Añadir digito
+               |  2         Quitar ultimo digito
+               |  3         Quitar digitos pares
+               |  4         Sumar todos los digitos
+               | otra       Terminar
+               |----------------------------------------------------------
+               |
+    """.trimMargin())
+}
+
+
 
 fun mostrarResultado(primerNumero: Long, segundoNumero: Long, operacion: String)
 {
@@ -309,7 +465,6 @@ fun mostrarMenu()
            |  5         Modificar operacion
            | otra       Terminar
            | """.trimMargin()
-
 
     println(s)
 }
