@@ -114,3 +114,101 @@
     ---------------------------------------------------------
     - Pulsa enter para continuar ...
 */
+
+
+class Producto(val id:Int, val nombre: String, var precio: Double, var cantidad:Int)
+{
+
+
+
+}
+
+fun main()
+{
+    val productos = crearListaProductos()
+    
+    while(true)
+    {
+        mostrarMenuInventario()
+        val opcion = elegirOpcion()
+        ejecutarAccionesInventario(opcion, productos)
+        if (opcion != "1" && opcion != "2" && opcion != "3" && opcion != "4" && opcion != "5")
+            break
+    }
+
+    finalizarEjecucion()
+}
+
+fun crearListaProductos() : MutableList<Producto>
+{
+    return mutableListOf()
+}
+
+fun finalizarEjecucion()
+{
+    println("Programa finalizado")
+}
+
+fun elegirOpcion() : String
+{
+    print("Elige una opción: ")
+    return readln()
+}
+
+fun ejecutarAccionesInventario(o: String, productos: MutableList<Producto>)
+{
+    when(o)
+    {
+        "1" -> anadirProducto(productos)
+        "2" -> mostrarInventario(productos)
+        "3" -> buscarProducto(productos)
+        "4" -> actualizarStockProducto(productos)
+        "5" -> eliminarProducto(productos)
+        else -> terminar()
+    }
+}
+
+fun eliminarProducto(productos: MutableList<Producto>)
+{
+
+}
+
+fun actualizarStockProducto(productos: MutableList<Producto>)
+{
+
+}
+
+fun buscarProducto(productos: MutableList<Producto>)
+{
+
+}
+
+fun mostrarInventario(productos: MutableList<Producto>)
+{
+
+}
+
+fun anadirProducto(productos: MutableList<Producto>)
+{
+
+}
+
+private fun mostrarMenuInventario()
+{
+    val s = """|OPCION   ACCION
+               |======================================================
+               |   1     Añadir nuevo producto
+               |   2     Mostrar inventario completo
+               |   3     Buscar producto por nombre
+               |   4     Actualizar stock de un producto
+               |   5     Eliminar producto
+               |  otra   Terminar""".trimMargin()
+
+    println(s)
+}
+
+private fun terminar()
+{
+    println("Saliendo del inventario...")
+    Thread.sleep(2000)
+}
