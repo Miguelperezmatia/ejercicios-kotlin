@@ -1,5 +1,3 @@
-import segundoNumero
-
 /*
     Hágase un programa que permita realizar sumas, restas, productos, divisiones enteras y resto entero de números enteros
     largos positivos o cero con un máximo de 9 dígitos.
@@ -278,17 +276,97 @@ fun ejecutarAccionesSubmenu(opcion: String, num: Long) : Long
     }
 }
 
-fun sumarDigitos(num: Long): Long {
-    TODO("Not yet implemented")
+fun sumarDigitos(num: Long): Long
+{
+    val s = """|*********************************************************
+               |* SUMAR DÍGITOS *
+               |**********************************************************º
+               |
+               |NÚMERO A SUMAR SUS DÍGITOS: $num""".trimMargin()
+
+    println(s)
+
+    val numeroCadena = num.toString()
+    var total = 0L
+
+    for(valor in numeroCadena)
+    {
+        val n = valor.toString().toLong()
+        total += n
+    }
+
+    val s2 ="""|LA SUMA DE LOS DIGITOS DEL NUMERO ES: $total
+               |---------------------------------------------------------
+               |""".trimMargin()
+
+    println(s2)
+    detenerEnter()
+    return total
 }
 
-fun quitarDigitosPares(num: Long): Long {
-    TODO("Not yet implemented")
+fun quitarDigitosPares(num: Long): Long
+{
+    val s = """|*********************************************************
+               |* QUITAR DÍGITOS PARES *
+               |**********************************************************º
+               |
+               |NÚMERO A MODIFICAR: $num""".trimMargin()
+
+    println(s)
+
+
+    val numeroCadena = num.toString()
+    var nuevoNumero = ""
+    var resultado = 0L
+
+    val lista = listOf<Char>('1', '3', '5', '7', '9')
+
+    var con = 0
+
+    for(n in numeroCadena)
+    {
+        if(n in lista)
+            nuevoNumero+=n
+        else
+            con++
+    }
+
+
+    if(con == numeroCadena.length)
+    {
+        println("NUEVO NÚMERO: $resultado")
+        println("---------------------------------------------------------")
+        detenerEnter()
+        return resultado
+    }
+
+    resultado = nuevoNumero.toLong()
+    println("NUEVO NÚMERO: $resultado")
+    println("---------------------------------------------------------")
+    detenerEnter()
+
+    return resultado
 }
 
 
-fun quitarUltimoDigito(num: Long): Long {
-    TODO("Not yet implemented")
+fun quitarUltimoDigito(num: Long): Long
+{
+    val s = """|*********************************************************
+               |* QUITAR DÍGITO *
+               |**********************************************************º
+               |
+               |NÚMERO A MODIFICAR: $num""".trimMargin()
+
+    println(s)
+    val nuevoNumero = num / 10
+
+    val s2 ="""|NUEVO NUMERO: $nuevoNumero
+               |---------------------------------------------------------
+               |"""".trimMargin()
+
+    println(s2)
+    detenerEnter()
+    return nuevoNumero
 }
 
 fun anadirDigito(num : Long): Long
@@ -322,8 +400,7 @@ fun obtenerNuevoNumero(num: Long, digito: Int)  : Long
     val nuevoNumero = num * 10 + digito
     val s = """|NUEVO NUMERO: $nuevoNumero
                |---------------------------------------------------------
-               |
-            """.trimMargin()
+               |""".trimMargin()
 
     println(s)
 
@@ -369,8 +446,7 @@ fun mostrarSubmenu()
                |  4         Sumar todos los digitos
                | otra       Terminar
                |----------------------------------------------------------
-               |
-    """.trimMargin())
+               |""".trimMargin())
 }
 
 
@@ -432,9 +508,7 @@ fun mostrarNumerosYOperacion(primerNumero: Long, segundoNumero: Long, operacion:
            |PRIMER NUMERO: $primerNumero
            |SEGUNDO NUMERO: $segundoNumero
            |OPERACION: $operacion
-           |---------------------------------------------------------
-           |
-        """.trimMargin()
+           |---------------------------------------------------------|""".trimMargin()
 
     println(s)
     detenerEnter()
@@ -463,8 +537,7 @@ fun mostrarMenu()
            |  3         Modificar primer numero
            |  4         Modificar segundo numero
            |  5         Modificar operacion
-           | otra       Terminar
-           | """.trimMargin()
+           | otra       Terminar| """.trimMargin()
 
     println(s)
 }
