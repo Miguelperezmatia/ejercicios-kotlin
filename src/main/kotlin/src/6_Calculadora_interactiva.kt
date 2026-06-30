@@ -184,11 +184,11 @@ fun main()
     finalizarPrograma()
 }
 
-fun finalizarPrograma() {
+private fun finalizarPrograma() {
     println("Programa finalizado.")
 }
 
-fun ejecutarAcciones(opcion: String, primerNumero: Long, segundoNumero: Long, operacion: String)
+private fun ejecutarAcciones(opcion: String, primerNumero: Long, segundoNumero: Long, operacion: String)
 {
     when(opcion)
     {
@@ -203,12 +203,12 @@ fun ejecutarAcciones(opcion: String, primerNumero: Long, segundoNumero: Long, op
 
 
 
-fun terminar() {
+private fun terminar() {
     println("Saliendo de la calculadora...")
     Thread.sleep(2000)
 }
 
-fun modificarOperacion()
+private fun modificarOperacion()
 {
     val s = """|*********************************************************
                |* LEER OPERACIÓN *
@@ -236,18 +236,18 @@ fun modificarOperacion()
     detenerEnter()
 }
 
-fun modificarSegundoNumero()
+private fun modificarSegundoNumero()
 {
     segundoNumero = aplicarLogicaSubmenu(segundoNumero)
 }
 
 
-fun modificarPrimerNumero()
+private fun modificarPrimerNumero()
 {
     primerNumero = aplicarLogicaSubmenu(primerNumero)
 }
 
-fun aplicarLogicaSubmenu(numero: Long): Long
+private fun aplicarLogicaSubmenu(numero: Long): Long
 {
     var numeroModificado = numero
 
@@ -264,7 +264,7 @@ fun aplicarLogicaSubmenu(numero: Long): Long
     return numeroModificado
 }
 
-fun ejecutarAccionesSubmenu(opcion: String, num: Long) : Long
+private fun ejecutarAccionesSubmenu(opcion: String, num: Long) : Long
 {
     return when (opcion)
     {
@@ -276,7 +276,7 @@ fun ejecutarAccionesSubmenu(opcion: String, num: Long) : Long
     }
 }
 
-fun sumarDigitos(num: Long): Long
+private fun sumarDigitos(num: Long): Long
 {
     val s = """|*********************************************************
                |* SUMAR DÍGITOS *
@@ -304,7 +304,7 @@ fun sumarDigitos(num: Long): Long
     return total
 }
 
-fun quitarDigitosPares(num: Long): Long
+private fun quitarDigitosPares(num: Long): Long
 {
     val s = """|*********************************************************
                |* QUITAR DÍGITOS PARES *
@@ -349,7 +349,7 @@ fun quitarDigitosPares(num: Long): Long
 }
 
 
-fun quitarUltimoDigito(num: Long): Long
+private fun quitarUltimoDigito(num: Long): Long
 {
     val s = """|*********************************************************
                |* QUITAR DÍGITO *
@@ -369,7 +369,7 @@ fun quitarUltimoDigito(num: Long): Long
     return nuevoNumero
 }
 
-fun anadirDigito(num : Long): Long
+private fun anadirDigito(num : Long): Long
 {
     val s = """|*********************************************************
                |* AÑADIR DÍGITO *
@@ -386,7 +386,7 @@ fun anadirDigito(num : Long): Long
     return nuevoNumero
 }
 
-fun obtenerNuevoNumero(num: Long, digito: Int)  : Long
+private fun obtenerNuevoNumero(num: Long, digito: Int)  : Long
 {
     val numeroCadena = num.toString()
 
@@ -409,7 +409,7 @@ fun obtenerNuevoNumero(num: Long, digito: Int)  : Long
 }
 
 
-fun leerNumero(): Int
+private fun leerNumero(): Int
 {
     var digito = 0
 
@@ -436,7 +436,7 @@ fun leerNumero(): Int
 }
 
 
-fun mostrarSubmenu()
+private fun mostrarSubmenu()
 {
     println("""|OPCION      ACCION
                |========================================================
@@ -451,7 +451,7 @@ fun mostrarSubmenu()
 
 
 
-fun mostrarResultado(primerNumero: Long, segundoNumero: Long, operacion: String)
+private fun mostrarResultado(primerNumero: Long, segundoNumero: Long, operacion: String)
 {
     var resultado = 0L
     try
@@ -478,7 +478,7 @@ fun mostrarResultado(primerNumero: Long, segundoNumero: Long, operacion: String)
     detenerEnter()
 }
 
-fun calcularResultado(primerNumero: Long, segundoNumero: Long, operacion: String) : Long
+private fun calcularResultado(primerNumero: Long, segundoNumero: Long, operacion: String) : Long
 {
     if (segundoNumero == 0L && operacion == "/")
        throw IllegalArgumentException("$primerNumero $operacion 0 = No se puede dividir entre 0")
@@ -498,7 +498,7 @@ fun calcularResultado(primerNumero: Long, segundoNumero: Long, operacion: String
     return Long.MAX_VALUE
 }
 
-fun mostrarNumerosYOperacion(primerNumero: Long, segundoNumero: Long, operacion: String)
+private fun mostrarNumerosYOperacion(primerNumero: Long, segundoNumero: Long, operacion: String)
 {
     val s =
         """|*********************************************************
@@ -515,19 +515,19 @@ fun mostrarNumerosYOperacion(primerNumero: Long, segundoNumero: Long, operacion:
 
 }
 
-fun detenerEnter()
+private fun detenerEnter()
 {
     print("Pulsa enter para continuar: ")
     readln()
 }
 
-fun leerOpcion() : String
+private fun leerOpcion() : String
 {
     print("Elige una opción: ")
     return readln()
 }
 
-fun mostrarMenu()
+private fun mostrarMenu()
 {
     val s =
         """|OPCION      ACCION
