@@ -1,6 +1,3 @@
-import java.util.Locale
-import java.util.Locale.getDefault
-
 /*
     Hágase un programa que permita gestionar el inventario de una pequeña tienda. El programa debe permitir registrar productos,
     consultar el stock, modificar cantidades y eliminar artículos.
@@ -176,12 +173,94 @@ fun ejecutarAccionesInventario(o: String, productos: MutableList<Producto>)
 
 fun eliminarProducto(productos: MutableList<Producto>)
 {
+    val s = """|*********************************************************
+               |* ELIMINAR PRODUCTO *
+               |*********************************************************""".trimMargin()
 
+    println(s)
+    val id = leerId("INTRODUCE EL ID DEL PRODUCTO A ELIMINAR: ")
+    if(!comprobarId(productos, id))
+        {
+            println("Error, el id $id no existe.")
+            detener()
+            return
+        }
+
+    val p = buscarProducto(productos, id)
+
+    println("PRODUCTO ${p?.nombre} ELIMINADO DEL SISTEMA.")
+    productos.remove(p)
+
+    detener()
 }
 
 fun actualizarStockProducto(productos: MutableList<Producto>)
 {
+    val s = """|*********************************************************
+               |* ACTUALIZAR STOCK *
+               |*********************************************************""".trimMargin()
 
+    println(s)
+
+    val id = leerId("INTRODUCE EL ID DEL PRODUCTO: ")
+    if(!comprobarId(productos, id))
+    {
+        println("Error, el id $id no existe.")
+        detener()
+        return
+    }
+
+    val p = buscarProducto(productos,id)
+    mostrarProducto(p)
+
+    val c = leerCantidad()
+
+    if(c == null)
+    {
+        println("Error, introduce un número válido")
+        detener()
+        return
+    }
+
+    if(c < 0)
+    {
+        println("La cantidad debe ser igual o mayor que 0")
+        detener()
+        return
+    }
+
+
+    p?.cantidad = c
+    println("STOCK ACTUALIZADO CORRECTAMENTE.")
+    detener()
+}
+
+fun mostrarProducto(p: Producto?)
+{
+    println("PRODUCTO ACTUAL: ${p?.nombre} (Stock): ${p?.cantidad}")
+}
+
+fun  buscarProducto(productos: MutableList<Producto>, id: Int?) : Producto?
+{
+
+    for(p in productos)
+    {
+        if(p.id == id)
+            return p
+    }
+
+    return null
+}
+
+fun comprobarId(productos: MutableList<Producto>, id: Int?) : Boolean
+{
+    for(p in productos)
+    {
+        if(p.id == id)
+            return true
+    }
+
+    return false
 }
 
 fun buscarProducto(productos: MutableList<Producto>)
@@ -205,11 +284,11 @@ fun buscarProducto(productos: MutableList<Producto>)
 
 fun mostrarProductoBuscado(productos: MutableList<Producto>, n: String)
 {
-    println(" RESULTADO ENCONTRADO: ")
+    println("RESULTADO ENCONTRADO: ")
 
     for(p in productos)
     {
-        if(p.nombre == n)
+        if(p.nombre.lowercase() == n)
             println("ID: ${p.id} | NOMBRE: ${p.nombre} | PRECIO: ${p.precio} | STOCK: ${p.cantidad}")
     }
 }
@@ -275,7 +354,7 @@ fun anadirProducto(productos: MutableList<Producto>)
 
     println(s)
 
-    val id = leerId()
+    val id = leerId("INTRODUCE EL ID (NUMERO): ")
     if(id == null)
     {
         println("Error, introduce un número válido")
@@ -319,6 +398,7 @@ fun anadirProducto(productos: MutableList<Producto>)
     } catch(e: IllegalArgumentException)
     {
         println(e.message)
+        detener()
     }
 }
 
@@ -346,9 +426,9 @@ fun leerNombre(mensaje: String) : String
     return readln()
 }
 
-fun leerId() : Int?
+fun leerId(mensaje : String) : Int?
 {
-    print("INTRODUCE EL ID (NUMERO): ")
+    print(mensaje)
     return readln().toIntOrNull()
 }
 
